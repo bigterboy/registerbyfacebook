@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -26,38 +26,30 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import {LoginButton, ShareDialog} from 'react-native-fbsdk';
+import { LoginButton, AccessToken } from 'react-native-fbsdk';
 
 export default class App extends Component {
-  _shareLinkWithShareDialog = async () => {
-    const canShow = await ShareDialog.canShow(SHARE_LINK_CONTENT);
-    if (canShow) {
-      try {
-        const {isCancelled, postId} = await ShareDialog.show(
-          SHARE_LINK_CONTENT,
-        );
-        if (isCancelled) {
-          Alert.alert('Share cancelled');
-        } else {
-          Alert.alert('Share success with postId: ' + postId);
-        }
-      } catch (error) {
-        Alert.alert('Share fail with error: ' + error);
-      }
-    }
-  };
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={{justifyContent: "center",alignContent: "center",marginTop: 200,flex: 1}}>
         <LoginButton
-          onLoginFinished={(error, data) => {
-            Alert.alert(JSON.stringify(error || data, null, 2));
-          }}
-        />
-        <TouchableHighlight onPress={this._shareLinkWithShareDialog}>
-          <Text style={styles.shareText}>Share link with ShareDialog</Text>
-        </TouchableHighlight>
+          onLoginFinished={
+            (error, result) => {
+              if (error) {
+                console.log("login has error: " + result.error);
+              } else if (result.isCancelled) {
+                console.log("login is cancelled.");
+              } else {
+                AccessToken.getCurrentAccessToken().then(
+                  (data) => {
+                    console.log(data.accessToken.toString())
+                  }
+                )
+              }
+            }
+          }
+          onLogoutFinished={() => console.log("logout.")} />
       </View>
     );
   }
