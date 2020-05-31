@@ -3,67 +3,45 @@
  * https://github.com/facebook/react-native
  *
  * @format
- * @flow strict-local
+ * @flow
  */
 
 import React, { Component } from 'react';
 import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
   Text,
-  StatusBar,
-  TouchableHighlight,
-  Alert
+  ScrollView,
+  SafeAreaView,
+  View,
+  Button,
+  TouchableOpacity,
+  Animated,
+  TextInput,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from 'react-native';
+import Router from './router';
+import { Provider } from 'react-redux';
+// import store from './redux/store';
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistor, store } from "./redux/store";
+import Home from './screen/MainHomeTab';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import { persistStore, persistReducer } from 'redux-persist'
 
-import { LoginButton, AccessToken } from 'react-native-fbsdk';
 
 export default class App extends Component {
-
+  constructor() {
+    super();
+    this.persistor = persistStore(store);
+  }
   render() {
     return (
-      <View style={{justifyContent: "center",alignContent: "center",marginTop: 200,flex: 1}}>
-        <LoginButton
-          onLoginFinished={
-            (error, result) => {
-              if (error) {
-                console.log("login has error: " + result.error);
-              } else if (result.isCancelled) {
-                console.log("login is cancelled.");
-              } else {
-                AccessToken.getCurrentAccessToken().then(
-                  (data) => {
-                    console.log(data.accessToken.toString())
-                  }
-                )
-              }
-            }
-          }
-          onLogoutFinished={() => console.log("logout.")} />
-      </View>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <Router />
+        </PersistGate>
+      </Provider>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  shareText: {
-    fontSize: 20,
-    margin: 10,
-  },
-});
