@@ -25,14 +25,14 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb250225482986718</string>
+				<string>fb3129248500446814</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>FacebookAppID</key>
-	<string>250225482986718</string>
+	<string>3129248500446814</string>
 	<key>FacebookDisplayName</key>
 	<string>SonCaProject</string>
 	<key>LSApplicationQueriesSchemes</key>
@@ -58,7 +58,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -73,5 +73,27 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>LSApplicationCategoryType</key>
+	<string/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>PoppinsVN-Black.ttf</string>
+		<string>PoppinsVN-Bold.ttf</string>
+		<string>PoppinsVN-Heavy.ttf</string>
+		<string>PoppinsVN-IBlack.ttf</string>
+		<string>PoppinsVN-IBold.ttf</string>
+		<string>PoppinsVN-IHeavy.ttf</string>
+		<string>PoppinsVN-ILight.ttf</string>
+		<string>PoppinsVN-IMedium.ttf</string>
+		<string>PoppinsVN-IRegular.ttf</string>
+		<string>PoppinsVN-ISemibold.ttf</string>
+		<string>PoppinsVN-IThin.ttf</string>
+		<string>PoppinsVN-Light.ttf</string>
+		<string>PoppinsVN-Medium.ttf</string>
+		<string>PoppinsVN-Regular.ttf</string>
+		<string>PoppinsVN-Semibold.ttf</string>
+		<string>PoppinsVN-Thin.ttf</string>
+		<string>PoppinsVN-UltraLight.ttf</string>
+	</array>
 </dict>
 </plist>

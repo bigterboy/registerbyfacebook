@@ -45,22 +45,8 @@ static void InitializeFlipper(UIApplication *application) {
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   
-  [[FBSDKApplicationDelegate sharedInstance] application:application
-  didFinishLaunchingWithOptions:launchOptions];
   
   return YES;
-}
-
-
-
-- (BOOL)application:(UIApplication *)application
-            openURL:(NSURL *)url
-            options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> * )options{
-  BOOL handle = [[FBSDKApplicationDelegate sharedInstance] application:application
-            openURL:url
-  sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
-         annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
-  return handle;
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge

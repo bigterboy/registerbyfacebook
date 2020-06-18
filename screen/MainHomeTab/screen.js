@@ -6,7 +6,7 @@
  * @flow
  */
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Text,
   ScrollView,
@@ -36,12 +36,15 @@ import {
 
 //const netRequest = new Network();
 
+import { LoginButton, AccessToken } from 'react-native-fbsdk';
+
+
 export default class MainHomeTab extends Component {
   constructor(props) {
     super(props);
   }
 
-  static navigationOptions = ({navigation}) => {
+  static navigationOptions = ({ navigation }) => {
     return {
       headerLeft: () => (
         <Button
@@ -66,42 +69,83 @@ export default class MainHomeTab extends Component {
   render() {
     console.log('render lai MAIN HOME TAB KHONG', this.props);
     return (
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <Text>TAB 1</Text>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <LoginButton
+          onLoginFinished={
+            (error, result) => {
+              if (error) {
+                console.log("login has error: " + result.error);
+              } else if (result.isCancelled) {
+                console.log("login is cancelled.");
+              } else {
+                AccessToken.getCurrentAccessToken().then(
+                  (data) => {
+                    console.log(data.accessToken.toString())
+                  }
+                )
+              }
+            }
+          }
+          onLogoutFinished={() => console.log("logout.")} />
+        {/* <Text>TAB 1</Text>
 
-          <TouchableOpacity
-            onPress={() => {
-              //this.props.navigation.navigate('ModalLoading');
-              this.props.handleIncrease();
-            }}>
-            <Text>CLICK +</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              //this.props.navigation.navigate('ModalLoading');
-              this.props.handleDecrease();
-            }}>
-            <Text>CLICK -</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              this.requestAPI();
-            }}>
-            <Text>REQUEST API</Text>
-          </TouchableOpacity>
-          <Text>{this.props.counter}</Text>
+        <TouchableOpacity
+          onPress={() => {
+            //this.props.navigation.navigate('ModalLoading');
+            this.props.handleIncrease();
+          }}>
+          <Text>CLICK +</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            //this.props.navigation.navigate('ModalLoading');
+            this.props.handleDecrease();
+          }}>
+          <Text>CLICK -</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            this.requestAPI();
+          }}>
+          <Text>REQUEST API</Text>
+        </TouchableOpacity>
+        <Text>{this.props.counter}</Text> */}
 
-          {/* <FloatingLabelInputButton
-            label="NAME"
-            url="https://raw.githubusercontent.com/AboutReact/sampleresource/master/input_username.png"
-            action={() => console.log('TEST THU')}
-          />
-          <FloatingLabelInputButton
-            label="EMAIL"
-            url="https://raw.githubusercontent.com/AboutReact/sampleresource/master/input_username.png"
-            action={() => console.log('CHAY KHONG')}
-          /> */}
-        </View>
+
+        {/* <Text style={{ fontFamily: "PoppinsVN-Thin", fontSize: 24 }}>Toys that tell stories.</Text>
+        <Text style={{ fontFamily: "PoppinsVN-UltraLight", fontSize: 24 }}>Toys that tell stories.</Text>
+        <Text style={{ fontFamily: "PoppinsVN-Light", fontSize: 24 }}>Toys that tell stories.</Text>
+        <Text style={{ fontFamily: "PoppinsVN-Regular", fontSize: 24 }}>Toys that tell stories.</Text>
+        <Text style={{ fontFamily: "PoppinsVN-Medium", fontSize: 24 }}>Toys that tell stories.</Text>
+        <Text style={{ fontFamily: "PoppinsVN-Semibold", fontSize: 24 }}>Toys that tell stories.</Text>
+        <Text style={{ fontFamily: "PoppinsVN-Bold", fontSize: 24 }}>Toys that tell stories.</Text>
+        <Text style={{ fontFamily: "PoppinsVN-Heavy", fontSize: 24 }}>Toys that tell stories.</Text>
+        <Text style={{ fontFamily: "PoppinsVN-Black", fontSize: 24 }}>Toys that tell stories.</Text>
+
+
+        <Text style={{ fontFamily: "PoppinsVN-IThin", fontSize: 24, fontWeight: "100" }}>Toys that tell stories.</Text>
+        <Text style={{ fontFamily: "PoppinsVN-ILight", fontSize: 24 }}>Toys that tell stories.</Text>
+        <Text style={{ fontFamily: "PoppinsVN-IRegular", fontSize: 24 }}>Toys that tell stories.</Text>
+        <Text style={{ fontFamily: "PoppinsVN-IMedium", fontSize: 24 }}>Toys that tell stories.</Text>
+        <Text style={{ fontFamily: "PoppinsVN-ISemibold", fontSize: 24 }}>Toys that tell stories.</Text>
+        <Text style={{ fontFamily: "PoppinsVN-IBold", fontSize: 24 }}>Toys that tell stories.</Text>
+        <Text style={{ fontFamily: "PoppinsVN-IHeavy", fontSize: 24 }}>Toys that tell stories.</Text>
+        <Text style={{ fontFamily: "PoppinsVN-IBlack", fontSize: 24 }}>Toys that tell stories.</Text> */}
+
+
+
+      </View>
     );
   }
 }
+//Italic
+
+// { fontWeight: '100' }, // Thin
+// { fontWeight: '200' }, // Ultra Light
+// { fontWeight: '300' }, // Light
+// { fontWeight: '400' }, // Regular
+// { fontWeight: '500' }, // Medium
+// { fontWeight: '600' }, // Semibold
+// { fontWeight: '700' }, // Bold
+// { fontWeight: '800' }, // Heavy
+// { fontWeight: '900' }, // Black
