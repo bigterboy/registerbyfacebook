@@ -36,12 +36,16 @@ import {
 
 //const netRequest = new Network();
 
-import { LoginButton, AccessToken } from 'react-native-fbsdk';
+import { LoginButton, AccessToken, LoginManager } from 'react-native-fbsdk';
 
 
 export default class MainHomeTab extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      token: null,
+      token2: null
+    }
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -66,6 +70,31 @@ export default class MainHomeTab extends Component {
     console.log('DATA RESPONS LA1111111', await this.props.getAPI());
   };
 
+
+  test = () => {
+    LoginManager.logInWithPermissions(["public_profile"]).then(
+       (result) => {
+        if (result.isCancelled) {
+          console.log("Login cancelled");
+        } else {
+          console.log(
+            "Login success with permissions: " +
+            result.grantedPermissions.toString()
+          );
+
+        }
+        console.log("RESULT: ", result)
+        this.setState({
+          token: JSON.stringify(result)
+        })
+
+      },
+      function (error) {
+        console.log("Login fail with error: " + error);
+      }
+    );
+  }
+
   render() {
     console.log('render lai MAIN HOME TAB KHONG', this.props);
     return (
@@ -73,20 +102,49 @@ export default class MainHomeTab extends Component {
         <LoginButton
           onLoginFinished={
             (error, result) => {
+
+              console.log("RESULT LA: ", JSON.stringify(result))
+              this.setState({
+                token2: JSON.stringify(result)
+              })
+
               if (error) {
                 console.log("login has error: " + result.error);
+                this.setState({
+                  token: "login is cancelled1."
+                })
               } else if (result.isCancelled) {
                 console.log("login is cancelled.");
+                this.setState({
+                  token: "login is cancelled.2"
+                })
               } else {
                 AccessToken.getCurrentAccessToken().then(
                   (data) => {
                     console.log(data.accessToken.toString())
+
+                    this.setState({
+                      token: data.accessToken.toString()
+
+                    })
                   }
                 )
               }
             }
           }
           onLogoutFinished={() => console.log("logout.")} />
+
+
+        <TouchableOpacity onPress={() => {
+          this.test()
+        }}>
+          <Text>
+            TEST APP
+          </Text>
+        </TouchableOpacity>
+
+        <Text>{this.state.token}</Text>
+        <Text>{this.state.token2}</Text>
         {/* <Text>TAB 1</Text>
 
         <TouchableOpacity
